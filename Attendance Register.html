@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Buddies Attendance Register - Nov/Dec 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 40px;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 30px 40px;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .stat-card h3 {
+            font-size: 14px;
+            color: #6c757d;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .stat-card .value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #212529;
+        }
+        
+        .stat-card.top {
+            border-left: 4px solid #28a745;
+        }
+        
+        .stat-card.bottom {
+            border-left: 4px solid #dc3545;
+        }
+        
+        .table-container {
+            padding: 40px;
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        
+        thead {
+            background: #f8f9fa;
+            position: sticky;
+            top: 0;
+        }
+        
+        th {
+            padding: 12px 8px;
+            text-align: left;
+            font-weight: 600;
+            color: #495057;
+            border-bottom: 2px solid #dee2e6;
+        }
+        
+        th.session-header {
+            text-align: center;
+            font-size: 11px;
+        }
+        
+        td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #f1f3f5;
+        }
+        
+        .org-name {
+            font-weight: 600;
+            color: #495057;
+            min-width: 120px;
+        }
+        
+        .participant-name {
+            color: #6c757d;
+            min-width: 180px;
+        }
+        
+        .attendance-cell {
+            text-align: center;
+            font-size: 18px;
+            width: 60px;
+        }
+        
+        .present {
+            color: #28a745;
+        }
+        
+        .absent {
+            color: #dc3545;
+        }
+        
+        .percentage-cell {
+            font-weight: 600;
+            text-align: center;
+            width: 80px;
+        }
+        
+        .perf-excellent {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .perf-good {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .perf-fair {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .perf-poor {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .org-row {
+            background: #e9ecef;
+        }
+        
+        .footer {
+            padding: 20px 40px;
+            background: #f8f9fa;
+            color: #6c757d;
+            font-size: 12px;
+            text-align: center;
+            border-top: 1px solid #dee2e6;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Business Buddies Attendance Register</h1>
+            <p>November - December 2025 | Compiled by Sam Madlala, Pathways Facilitator</p>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card top">
+                <h3>Top Performers</h3>
+                <div class="value">3 Orgs</div>
+                <p style="margin-top: 8px; color: #6c757d; font-size: 13px;">
+                    DUCT (100%), NMDP (96.4%), ERS (95%)
+                </p>
+            </div>
+            
+            <div class="stat-card bottom">
+                <h3>Needs Support</h3>
+                <div class="value">2 Orgs</div>
+                <p style="margin-top: 8px; color: #6c757d; font-size: 13px;">
+                    WESSA (25%), Worlds View (25%)
+                </p>
+            </div>
+            
+            <div class="stat-card">
+                <h3>Overall Attendance</h3>
+                <div class="value">76.8%</div>
+                <p style="margin-top: 8px; color: #6c757d; font-size: 13px;">
+                    Across 12 partner organizations
+                </p>
+            </div>
+        </div>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="org-name">Organization</th>
+                        <th class="participant-name">Business Buddy</th>
+                        <th class="session-header">11 Dec<br>2025</th>
+                        <th class="session-header">04 Dec<br>2025</th>
+                        <th class="session-header">20 Nov<br>2025</th>
+                        <th class="session-header">06 Nov<br>2025</th>
+                        <th class="percentage-cell">Rate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- DUCT -->
+                    <tr class="org-row">
+                        <td class="org-name" rowspan="3">DUCT</td>
+                        <td class="participant-name">Madoda Hlophe</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="percentage-cell perf-excellent" rowspan="3">100%</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Bukhosi Ndlovu</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Lulama Magwaza</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                    </tr>
+                    
+                    <!-- NMDP -->
+                    <tr class="org-row">
+                        <td class="org-name" rowspan="7">NMDP</td>
+                        <td class="participant-name">Nkosinomusa Busane</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="percentage-cell perf-excellent" rowspan="7">96.4%</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Wonder Jikazi</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Lungelo Sabela</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="attendance-cell present">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Nosipho Ngcobo</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Fundiswa Dlungwana</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Nokwanda Linda</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Mxolisi Zondi</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                    </tr>
+                    
+                    <!-- ERS -->
+                    <tr class="org-row">
+                        <td class="org-name" rowspan="5">ERS</td>
+                        <td class="participant-name">Banele Dingindlela</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="percentage-cell perf-excellent" rowspan="5">95%</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Thumeka Gibixhengu</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Moeketsi Mokaremotsa</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Katiso Wende</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Nomacebo Sidlayiya</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                    </tr>
+                    
+                    <!-- LIBERTY NPO -->
+                    <tr class="org-row">
+                        <td class="org-name" rowspan="4">LIBERTY NPO</td>
+                        <td class="participant-name">Sthokozile Shangase</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="percentage-cell perf-excellent" rowspan="4">93.8%</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Noluthando Zondi</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Nontobeko Ngcobo</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Sinegugu Langa</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                    </tr>
+                    
+                    <!-- LOVE HOWICK -->
+                    <tr class="org-row">
+                        <td class="org-name" rowspan="5">LOVE HOWICK</td>
+                        <td class="participant-name">Zeelondiwe Khathi</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="percentage-cell perf-excellent" rowspan="5">90%</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Noluthando Zaca</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Nosipho Buthelezi</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Luanda Mbense</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Londeka Majola</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                    </tr>
+                    
+                    <!-- USE-IT -->
+                    <tr class="org-row">
+                        <td class="org-name" rowspan="7">USE-IT</td>
+                        <td class="participant-name">Noluthando Dladla</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="percentage-cell perf-good" rowspan="7">82.1%</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Bongeka Zungu</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Zizipho Gwija</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Lindokuhle Ngcamu</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell absent">✗</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Minenhle Mkhize</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Snomusa Zulu</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Nomthandazo Nzama</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                    </tr>
+                    
+                    <!-- BESG -->
+                    <tr class="org-row">
+                        <td class="org-name" rowspan="6">BESG</td>
+                        <td class="participant-name">Sabelo Ntshangase</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="percentage-cell perf-fair" rowspan="6">70.8%</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Zinhle Hlongwane</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Ntombi Ndlovu</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Siphokuhle Hadebe</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Snethemba Langa</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell absent">✗</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Nondumiso Ngubane</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                    </tr>
+                    
+                    <!-- PALMIETS -->
+                    <tr class="org-row">
+                        <td class="org-name" rowspan="2">PALMIETS</td>
+                        <td class="participant-name">Nomfundo Ntuli</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="percentage-cell perf-fair" rowspan="2">50%</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Thenjiwe Mpanza</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                    </tr>
+                    
+                    <!-- INR -->
+                    <tr class="org-row">
+                        <td class="org-name" rowspan="4">INR</td>
+                        <td class="participant-name">Simphiwe Maphanga</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="percentage-cell perf-poor" rowspan="4">43.8%</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Nondumiso Zuma</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Nonhle Duma</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="attendance-cell absent">✗</td>
+                    </tr>
+                    <tr>
+                        <td class="participant-name">Kwanda Shezi</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="attendance-cell present">✓</td>
+                    </tr>
+                    
+                    <!-- WESSA -->
+                    <tr class="org-row">
+                        <td class="org-name">WESSA</td>
+                        <td class="participant-name">Zonke Mofokeng</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="percentage-cell perf-poor">25%</td>
+                    </tr>
+                    
+                    <!-- WORLDS VIEW -->
+                    <tr class="org-row">
+                        <td class="org-name">WORLDS VIEW</td>
+                        <td class="participant-name">Xoliswa Vilakazi</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="attendance-cell absent">✗</td>
+                        <td class="attendance-cell present">✓</td>
+                        <td class="percentage-cell perf-poor">25%</td>
+                    </tr>
+                    
+                    <!-- KPCA -->
+                    <tr class="org-row">
+                        <td class="org-name">KPCA</td>
+                        <td class="participant-name">Cornelia Van Der Sandt</td>
+                        <td class="attendance-cell present">✓*</td>
+                        <td class="attendance-cell present">✓*</td>
+                        <td class="attendance-cell present">✓*</td>
+                        <td class="attendance-cell present">✓*</td>
+                        <td class="percentage-cell perf-excellent">100%</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <p style="margin-top: 20px; font-size: 12px; color: #6c757d;">
+                * KPCA participant attended Leadership Sessions instead of Business Buddy sessions
+            </p>
+        </div>
+        
+        <div class="footer">
+            <p><strong>Contact:</strong> Sam Madlala, Pathways Facilitator | samkelom@duct.org.za | 081-549-1280</p>
+            <p style="margin-top: 8px;">Business Buddies are responsible for notifying Sam of any name or contact changes.</p>
+        </div>
+    </div>
+</body>
+</html>
